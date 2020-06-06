@@ -1,0 +1,128 @@
+@font-face {
+  font-family: 'Font-Regular';
+  src: url('../fonts/catamaran_regular.ttf')
+}
+@font-face {
+  font-family: 'Font-Bold';
+  src: url('../fonts/catamaran_bold.ttf')
+}
+body{
+    font-family: 'Font-Regular';
+    background-color: #161616;
+    color: #f2f2f2;
+    font-size: 24px;
+    margin: 0px;
+}
+.scroll_list{
+    position: absolute;
+    top: 0px;
+    bottom: 70px;
+    right: 0px;
+    left: 0px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(315px, 1fr) );
+    grid-gap: 30px;
+    justify-content: center;
+    align-items: center;
+    padding: 4vw;
+}
+.scroll_list:empty{
+    background-image: url('itch.png');
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center;
+    opacity: 0.1;
+}
+.game#template{ display:none; }
+.game{
+    width: 100%;
+    max-width: 315px;
+    border: 1px solid black;
+    background-color: #252525;
+    cursor: pointer;
+    transition: transform .1s;
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px black, -1px -1px 1px grey;
+}
+.game:hover{
+    transform: scale(0.95);
+}
+.game .cover{ 
+    width: 100%; 
+    border-radius: 20px 20px 0px 0px;
+}
+.game .title,.subtitle{
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 300px;
+    overflow: hidden;
+}
+.game .title{
+    margin: 0px 10px 0px 10px;
+    font-size: 24px;
+    line-height: 24px;
+}
+.game .subtitle{
+    margin: 5px 10px 20px 10px;
+    font-size: 16px;
+    line-height: 16px;
+}
+.game .user_name{
+    margin: 5px 10px;
+    font-size: 16px;
+    line-height: 16px;
+    text-align: center;
+    color: #909090;
+}
+.game .user_pic{
+    width: 100px;
+    height: 100px;
+    margin: 0px auto 20px auto;
+    /*display: block;*/
+    display: none;
+    border-radius: 50%;
+}
+
+.bottom_title{
+    position:absolute;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+}
+header{ 
+    display: flex;
+    flex-direction: row-reverse;
+    padding-right: 5px; 
+}
+header .logo{ 
+    width: 200px; 
+    height: 67px;
+}
+footer {
+    font-size: 14px;
+    border-top: 1px solid black;
+    margin-top: -20px;
+    padding: 3px;
+    background-color: #222222;
+}
+footer a{ color: #a6e08d; }
+footer a:hover{ color: #e0c351; }
+@media screen and (max-width:525px){
+    header{ background-color: #22222290; }
+    footer{ margin-top: initial; }
+    header .logo{ 
+        width: 100px; 
+        height: 33px;
+    }
+}
+@media screen and (max-width:320px){
+    .scroll_list{ padding: 0px; }
+    iframe{ width: 319px; }
+}
+.scroll_list::-webkit-scrollbar {
+    background-color: #404040;
+    width: 2px;
+}
+.scroll_list::-webkit-scrollbar-thumb { background-color: #c2c2c2; }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="title" content="Torre dos Dados">
+<meta name="description" content="Conhece melhor a bota do servidor RPG Portugal">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rpgportugal.com/torre">
+<meta property="og:title" content="Torre dos Dados">
+<meta property="og:description" content="Conhece melhor a bota do servidor RPG Portugal">
+<meta property="og:image" content="https://rpgportugal.com/torre/social.jpg">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://rpgportugal.com/torre">
+<meta property="twitter:title" content="Torre dos Dados">
+<meta property="twitter:description" content="Conhece melhor a bota do servidor RPG Portugal">
+<meta property="twitter:image" content="https://rpgportugal.com/torre/social.jpg">
+<title>Torre dos Dados</title>
+</head>
+<link rel="stylesheet" href="style.css">
+<script src="lib/moment.min.js"></script>
+<script src="lib/dygraphs.min.js"></script>
+<body>
+<a class="left watermark" href="https://rpgportugal.com">rpgportugal.com</a>
+<a class="right watermark" href="https://twitter.com/jogadorsonhador">@jogadorsonhador</a>
+<header>
+    <img src="img/torredosdados.jpg" alt="Torre dos Dados">
+    <div class="title">Torre dos Dados</div>
+</header>
+<section class="graph">
+    <div id="timeline"></div>
+    <div class="caption">nº diário de pessoas online desde que a nossa bota entrou em funcionamento</div>
+</section>
+<section class="text">
+<p>A Torre dos Dados é um bot do Discord feito à medida para o servidor RPG Portugal. Como Torre é um nome feminino, costumamos dizer que é a nossa bota. Para perceber as suas principais funcionalidades, há que ter em conta o que se passa no nosso servidor:</p>
+<ul>
+    <li><b>Todos os servidores de Discord estão divididos em channels (canais de texto e voz) e todos os seus membros podem ter no seu perfil vários roles (etiquetas identificativas)</b>. Estes roles podem ser meramente decorativos, podem servir para dirigir alguma mensagem só a essas pessoas, podem ser necessários para aceder a certos canais, etc.</li>
+    <li><b>O propósito do RPG Portugal é ajudar as pessoas a encontrarem-se para jogar, seja na sua região, seja online.</b> Por isso, quando alguém entra no servidor, a bota pergunta-lhe se procura jogar RPGs tabletop e aonde. Isto é o ponto de partida para uma conversa que todos os novos membros podem ter à entrada de modo a receberem roles que os identificam como alguém interessado em jogar online ou em determinada região de Portugal.</li>
+    <li><b>Estes roles que indicam onde a pessoa quer jogar são todos de cor amarela e são dados manualmente pelos moderadores do servidor.</b> Isto é necessário para validar que a pessoa que entrou é alguém interessado em participar na comunidade. Pessoas que entram e não dizem nada acabam por ser removidas do servidor por inactividade.</li>
+    <li><b>Existem também outros roles que servem para cada utilizador só ver canais que lhe possam interessar, nomeadamente dos RPGs que pretende jogar.</b> Por exemplo, para alguém ver o canal <i>#dnd-e-d20</i>, necessita do role <i>@D&D e D20</i>. Existem canais para diversos RPGs, bem como canais para assuntos mais específicos como design ou ilustração.</li>
+    <li><b>Existem muitos bots no Discord e todos funcionam de forma semelhante</b>. Para dares um comando à bota simplesmente escreves num canal de texto a palavra certa, como por exemplo <u>!ajuda</u>. Todos os comandos da Torre dos Dados são precedidos por um <u>!</u> e, no caso de haverem parâmetros adicionais, estes são separados por espaços, como por exemplo <u>!quero wod fate pbta</u></li>
+</ul>
+<p>Assim sendo, a Torre dos Dados foi criada para:</p>
+<h1>Definir que canais de RPG ver</h1>
+<p>Podes pedir os roles que te permitem ver certos canais através do comando <u>!quero</u>. Se por exemplo te interessa Call of Cthulhu, Star Wars e World of Darkness, podes dizer <u>!quero coc starwars wod</u>. Se queres ver o canal de D&D, diz <u>!quero d20</u>. Tu podes ver todos os roles que um utilizador já tem clicando no seu avatar (no telemóvel, faz long-press no avatar). Se disseres apenas <u>!quero</u> ou deres um parâmetro que a bota não reconheça, a Torre dos Dados lista-te os roles que te pode dar. Se quiseres deixar de ter algum role que pediste, usa o comando <u>!retira</u> que funciona de modo semelhante.</p>
+<p></p>
+<h1>Lançar dados</h1>
+<p>É possível jogar online usando practicamente só o Discord, nós temos mesas numeradas sempre com um canal de voz e outro de texto. Os jogadores falam, por exemplo na <i>Mesa 2</i> e lançam dados na <i>#mesa-2</i>. A Torre dos Dados responde a comandos como <u>!2d6</u> <u>!d20</u> <u>!5d10</u> <u>!d100</u> <u>!4df</u> ou <u>!gen aapd</u>. Normalmente, a bota coloca os dados lançados por ordem decrescente, mas podes cancelar isso adicionando o parâmetro <u>misturados</u>, por exemplo <u>!4d6 misturados</u>. Se quiseres que a bota faça uma soma dos dados, diz por exemplo <u>!2d8 somados</u>. Também podes modificar essa soma indicando por exemplo <u>!4d4 +2</u> ou <u>!3d8 -1</u>. Se precisares de um número aleatório até X, o comando é <u>!númeroaté 52</u> por exemplo.</p>
+<h1>Ajudar a manter o servidor</h1>
+<p>Em geral há muitas ferramentas que o Discord não coloca ainda há disposição de quem organiza um servidor, nomeadamente um gráfico como aquele que vês no topo desta página. A Torre dos Dados mantém um registo da actividade no servidor para sabermos em que horas hà mais participação, que roles são mais populares, etc. A nossa bota também abre o Discord à open web integrando com o <a href="https://twitter.com/rpg_portugal">Twitter</a> ou o <a href="https://www.reddit.com/r/PortugalRPG/">Reddit</a>, todas as plataformas que não sejam ecossistemas fechados.</p>
+<h1>Pequenas coisas</h1>
+<p>Uma das vantagens de manter uma bota feita à medida do servidor é haverem sempre pequenas coisas que podem ser úteis ou simplesmente divertidas. Por exemplo, se quiseres pedir uma pesquisa na Wikipedia, basta dizeres <u>!procura viriato</u> ou <u>!search napoleon</u> se for para a versão Inglesa. Ou, como a Torre dos Dados é também um registo da actividade no servidor, podes pedir à bota para calcular o teu <u>!nível</u> de participação se já estiveres no servidor há algum tempo. E a bota por si própria executa certas tarefas automaticamente, como nos informar da informação da pandemia todos os dias às 15h ou semanalmente ir relembrando os canais de texto daquilo que está na sua descrição e nas suas mensagens afixadas.</p>
+</section>
+<footer>
+<p>A Torre dos Dados é desenvolvida e mantida online por <a href="https://twitter.com/jogadorsonhador">Ricardo Tavares</a>. Não dispõe de um servidor próprio, mas em príncipio está disponível 24 horas por dia, 7 dias por semana. Se desejas apoiar este ou outros projectos do rpgportugal.com, visita o nosso <a href="https://ko-fi.com/rpgportugal">Ko-Fi</a>, uma plataforma escolhida por não cobrar valores intermediários e permitir fixar objectivos de financiamento. Se preferes apoiar estes projectos de promoção do RPGs com o teu tempo ou talento, contacta os moderadores do RPG Portugal no Discord. Obrigado!</p>
+</footer>
+</body>
+<script>
+moment.locale('pt');
+if(window.fetch){
+    fetch('https://rkd.chmuranet.net/tools/rpgportugal/discord/online.php').then(function(response){ return response.json(); }).then(function(response){ 
+        var points = response.map(function(m){
+            var point = [ new Date(m.day), parseFloat(m.online_count) ];
+            return point;
+        });
+        timeline = new Dygraph(document.getElementById('timeline'), points, {
+            color:'#ed9229', 
+            showLabelsOnHighlight:false, 
+            axes: { x: { axisLabelFormatter: function(d, gran, opts) { return moment(d).format('MMM DD'); } } }
+        });
+    });
+}
+</script>
+</html>

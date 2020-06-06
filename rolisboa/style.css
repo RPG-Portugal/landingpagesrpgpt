@@ -1,0 +1,76 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color: #d4c5a8;
+    color: #f9e001;
+    font-family: system-ui;
+}
+.grid_center{
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+header {
+    width: 100%;
+    height: 100vh;
+    background-image: url('img/team.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+}
+.banner{
+    width: 100%;
+    color: #231701;
+}
+.title{
+    font-size: 10vw;
+    font-weight: bold;
+}
+.date{
+    margin-top: -10px;
+    font-size: 4vw;
+    font-weight: bold;
+}
+.ics{
+    font-size: 3vw;
+    border-bottom: 1px solid #110905;
+}
+.ics a{
+    text-decoration: none;
+    color: #110905;
+}
+#countdown{
+    align-self: end;
+    padding: 20px 0px;
+    background-color: rgba(19, 10, 5, 0.5);
+}
+.scroll_down {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: -10px;
+    text-align: center;
+    font-size: 32px;
+    opacity: 0.5;
+    color: white;
+}
+.twitter{
+    padding-top: 100px;
+    background-color: #d4c5a8
+}
+footer{
+    padding: 100px 10px 50px 10px;
+    text-align: center;
+    font-size: 16px;
+    background-color: #0c0704;
+    color: #d4c5a8;;
+}
+footer p a{
+    color: #535257;
+}
+
+@media (max-width: 640px) { 
+    header{ background-size: 300%; }    
+    .title{ font-size: 48px; }
+    .date{ font-size: 24px; }
+}

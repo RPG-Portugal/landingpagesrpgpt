@@ -8,4 +8,4 @@ https://rpgportugal.com/rpgenesis/ é um endereço mais fácil de lembrar para o
 
 https://rpgportugal.com/torre/ é uma página informativa para a https://github.com/rotvr/torredosdados a bota do servidor no Discord.
 
-A landing page rpgportugal.com não pode ser tornada pública de modo a esconder alguns easter eggs que são divertidos de encontrar.
+A versão que está aqui do rpgportugal.com não inclui alguns easter eggs que são divertidos de encontrar online.

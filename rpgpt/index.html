@@ -18,6 +18,7 @@
 <meta property="twitter:image" content="https://rpgportugal.com/img/social.jpg">
 <link rel="stylesheet" href="./libs/devices.css">
 <link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 <script>
 var screens = {
     time_between: 7000,
@@ -44,9 +45,10 @@ var screens = {
 };
 </script>
 </head>
-<body onload="lang.translate()">
-<header>
-    <a id="lang" href="?lang=en">en</a>
+<body>
+<div id="app">
+<header v-bind:class="{ extra_tall: checkboxes.open }">
+    <a id="lang" v-bind:href="'?lang=' + nextLang()">{{nextLang()}}</a>
     <div class="device device-iphone-8"><div class="device-frame">
     <img class="device-content" src="./screenshots/waiting.jpg"></div><div class="device-stripe"></div><div class="device-header"></div>
     <div class="device-sensors"></div><div class="device-btns"></div><div class="device-power"></div></div>
@@ -59,66 +61,61 @@ var screens = {
         <source srcset="img/banner_1200.png" media="(min-width: 800px)" />
         <img src="img/banner_1200.png" />
     </picture>
-    <p><span id="slogan">Adiciona este servidor ao teu Discord e vem jogar RPGs tabletop com pessoal de Portugal</span> <i class="emoji wave"></i></p>
-    <div id="call_to_action" onclick="invite.get()">Junta-te a Nós</div>
+    <p v-if="!checkboxes.open"><span id="slogan">{{t([
+            'Adiciona este servidor ao teu Discord e vem jogar RPGs tabletop com pessoal de Portugal',
+            'Add this server to your Discord and find many other tabletop roleplayers in Portugal'
+        ])}}</span> <i class="emoji wave"></i></p>
+    <div id="call_to_action" v-if="!checkboxes.open" v-bind:class="{ loading: checkboxes.loading }"
+    v-on:click="openCheckboxes()"><span>{{t([
+            'Junta-te a nós',
+            'Come and join us'
+        ])}}</span><img src="img/dice.png"></div>
+    <div v-if="checkboxes.open" id="checkboxes">
+        <div class="explanation">{{t([
+        "Fazeres parte da nossa comunidade envolve três passos simples:", 
+        "Becoming a part of our community involves three simple steps:"])}}</p>
+        <ul>
+            <li v-for="(checkbox, index) in checkboxes.items">
+                <div class="toggle">
+                    <input type="checkbox" v-bind:id="'switch_'+index" v-model="checkbox.value"><label v-bind:for="'switch_'+index"></label>
+                </div>
+                <div class="label" v-bind:class="{ golden: checkbox.value }">{{t(checkbox.labels)}}</div>
+            </li>
+        </ul>
+        <div id="open_discord" v-bind:class="{ ready: checkBoxesReady() }" v-on:click="openDiscord()">{{t([
+            "Entrar no RPG Portugal", 
+            "Enter RPG Portugal"])}}</div>
+    </div>
 </header>
 <section class="friends">
-    <p><span id="friends_title">Amigos do RPG Portugal</span><br><i class="emoji time"></i><i class="emoji heart"></i><i class="emoji money"></i></p>
+    <p><span id="friends_title">{{t([
+            'Amigos do RPG Portugal',
+            'Friends of RPG Portugal'
+        ])}}</span><br><i class="emoji time"></i><i class="emoji heart"></i><i class="emoji money"></i></p>
     <ul>
-        <li data-tilt data-tilt-reverse="true">
-            <a href="https://itch.io/profile/ladyentropy" target="_blank"><img src="img/friends/1.png"></a>
+        <li v-for="friend in layoutFriends()">
+            <a v-if="!friend.placeholder && !friend.your_profile_here" v-bind:href="friend.link"><img v-bind:src="friend.avatar"></a>
+            <a v-if="friend.your_profile_here" id="your_profile_here" style="padding:10px;" 
+            href="https://ko-fi.com/rpgportugal" target="_blank">{{t([
+            'O teu perfil aqui em breve?',
+            'Your profile here soon?'])}}</a>
+            <img v-if="friend.placeholder" style="border:none;width: 77px;padding: 10px;opacity:0.7" src="img/emoji/blobhero.png">
         </li>
-        <li data-tilt data-tilt-reverse="true">
-            <a href="https://twitter.com/jogadorsonhador" target="_blank"><img src="img/friends/2.png"></a>
-        </li>
-        <li data-tilt data-tilt-reverse="true">
-            <a href="https://twitter.com/jrnmariano" target="_blank"><img src="img/friends/3.png"></a>
-        </li>
-        <li data-tilt data-tilt-reverse="true">
-            <a href="https://itch.io/profile/misticspell" target="_blank"><img src="img/friends/4.png"></a>
-        </li>
-        <li data-tilt data-tilt-reverse="true">
-            <a href="https://stackoverflow.com/users/757114/cybervitor" target="_blank"><img src="img/friends/5.png"></a>
-        </li>
-        <li data-tilt data-tilt-reverse="true">
-            <a href="https://twitter.com/Skrarun1" target="_blank"><img src="img/friends/6.png"></a>
-        </li>
-        <li data-tilt data-tilt-reverse="true">
-            <a href="https://twitter.com/jofazepa" target="_blank"><img src="img/friends/7.png"></a>
-        </li>
-        <li data-tilt data-tilt-reverse="true">
-            <a href="https://twitter.com/telmomendesleal" target="_blank"><img src="img/friends/8.png"></a>
-        </li>
-        <li data-tilt data-tilt-reverse="true">
-            <a href="https://twitter.com/catsjacinto" target="_blank"><img src="img/friends/9.png"></a>
-        </li>
-        <li data-tilt data-tilt-reverse="true">
-            <a href="https://www.twitch.tv/sanguinia" target="_blank"><img src="img/friends/10.png"></a>
-        </li>
-        <li data-tilt data-tilt-reverse="true">
-            <a href="https://twitter.com/ricmadeira" target="_blank"><img src="img/friends/11.png"></a>
-        </li>
-        <li data-tilt data-tilt-reverse="true">
-            <a><img src="img/friends/12.png"></a>
-        </li>
-
-        <!--<li><img style="border:none;width: 77px;padding: 10px;opacity:0.7" src="img/emoji/blobhero.png"></li>-->
-        <li data-tilt data-tilt-reverse="true">
-            <a href="https://twitter.com/scumbagDM" target="_blank"><img src="img/friends/13.png"></a>
-        </li>
-        <li>
-            <a id="your_profile_here" style="padding:10px;" href="https://ko-fi.com/rpgportugal" target="_blank">O teu perfil aqui em breve?</a>
-        </li>
-        <li data-tilt data-tilt-reverse="true">
-            <a href="https://twitter.com/PreciousMinakie" target="_blank"><img src="img/friends/14.png"></a>
-        </li>
-        <!--<li><img style="border:none;width: 77px;padding: 10px;opacity:0.7" src="img/emoji/blobhero.png"></li>-->
     </ul>
     <div class="pay">
-    <span id="want_to_be_our_friend">Queres ser nosso amigo? Já fazes parte do servidor?</span><br>
-    <span id="get_us_a_kofi">Oferece-nos então um</span> 
+    <span id="want_to_be_our_friend">{{t([
+            'Queres ser nosso amigo? Já fazes parte do servidor?',
+            'Would you like to help us promote the server?'
+        ])}}</span><br>
+    <span id="get_us_a_kofi">{{t([
+            'Oferece-nos então um',
+            'Buy us a'
+        ])}}</span> 
     <a href="https://ko-fi.com/rpgportugal" target="_blank"><span class="kofi"></span> Ko-fi &nbsp;</a><br>
-    <span id="to_help">para ajudar a manter o domínio rpgportugal.com<br></span>
+    <span id="to_help">{{t([
+            'para ajudar a manter o domínio rpgportugal.com',
+            'to help maintain the rpgportugal.com domain'
+        ])}}</span>
     </div>
     <img id="d10" src="img/dice.png" alt="RPG Portugal" onclick="roll(this)">
     <div id="roll"></div>
@@ -133,120 +130,26 @@ var screens = {
     </a>
 </section>
 <section class="games">
-    <p id="rpgportugal_recommends">O RPG Portugal recomenda: joga os jogos do teu país!</p>
-    <a href="jogos/index.html" target="_blank"> <img id="rpgs_from_portugal" src="img/logopt.png" data-tilt/> </a>
-    <p id="rpgs_published" style="margin-top: -10px; font-size: 16px;">RPGs publicados por Portugueses no itch.io</p>
+    <p id="rpgportugal_recommends">{{t([
+            'O RPG Portugal recomenda: joga os jogos do teu país!',
+            'RPG Portugal recommends:'
+        ])}}</p>
+    <a href="jogos/index.html" target="_blank"> <img id="rpgs_from_portugal" v-bind:src="'jogos/logo' + currentLang() + '.png'"> </a>
+    <p id="rpgs_published" style="margin-top: -10px; font-size: 16px;">{{t([
+            'RPGs publicados por Portugueses no itch.io',
+            'RPGs published by Portuguese designers in itch.io'
+        ])}}</p>
 </section>
-<footer><b onclick="easter(this)" data-counter="0">❤ </b><span id="created_by">landing-page para o RPG Portugal criada e mantida por</span> 
+<footer><b onclick="easter(this)" data-counter="0">❤ </b><span id="created_by">{{t([
+            'landing-page para o RPG Portugal criada e mantida por',
+            'landing page for RPG Portugal created and maintained by'
+        ])}}</span> 
 Ricardo Tavares (<a href="https://twitter.com/jogadorsonhador" target="_blank">@jogadorsonhador</a>)</footer>
+</div>
 <div id="loading"><img src="img/dice.png"></div>
 <img id="badge">
 </body>
-<script src="./libs/tilt.js"></script>
-<script>
-var loading = {
-    element: document.getElementById('loading'),
-    show: function(){ this.element.style.display = 'grid'; },
-    hide: function(){ this.element.style.display = 'none'; }
-};
-var invite = {
-    service: 'https://rkd.chmuranet.net/tools/rpgportugal/discord/',
-    base_url: 'https://discord.gg/',
-    get: function(){
-        if(!fetch){
-            alert('Utiliza um browser actualizado para aceder ao Discord (ex: Microsoft Edge)');
-            return false; 
-        }
-        var request_url = invite.service + '?w=' + window.innerWidth + '&h=' + window.innerHeight;
-        if(document.referrer){ request_url += '&r=' + encodeURI(document.referrer); }
-        loading.show();
-        fetch(request_url).then(function(response){ return response.json(); }).then(function(response){ 
-            loading.hide();
-            if(response.success && response.code){ 
-                var opened = open(invite.base_url + response.code, '_blank');
-                if(!opened){//pop-up was blocked
-                    window.location.href = invite.base_url + response.code;
-                }
-            }else{
-                alert('Neste momento não há convites disponíveis para entrar no servidor. Podes tentar mais tarde.');
-            }
-        }).catch(function(error){
-            loading.hide();
-            alert(error);
-        });
-    }
-};
-var lang = {
-    element: document.getElementById('lang'),
-    translate: function(){
-        var translation_index = lang.codes.indexOf(lang.current());
-        Object.keys(lang.translations).map(function(id){
-            var element = document.getElementById(id);
-            if(!element){ return false; }
-            element.innerText = lang.translations[id][translation_index];
-            element.innerHtml = lang.translations[id][translation_index];
-        });
-        document.getElementById('rpgs_from_portugal').src = 'img/logo' + lang.current() + '.png';
-        var next_code = lang.next();
-        lang.element.innerText = next_code;
-        lang.element.href = '?lang=' + next_code;
-    },
-    current: function(){
-        if(window.location.search){
-            var code = window.location.search.replace('?lang=', '');
-            if(lang.codes.indexOf(code) == -1){ return lang.codes[0]; }
-            else{ return code; }
-        }else{ return lang.codes[0]; }
-    },
-    next: function(){
-        var next_index = lang.codes.indexOf(lang.current()) + 1;
-        if(next_index == lang.codes.length){ next_index = 0; }
-        return lang.codes[next_index];
-    },
-    codes: ['pt', 'en'],
-    translations:{
-        slogan:[
-            'Adiciona este servidor ao teu Discord e vem jogar RPGs tabletop com pessoal de Portugal',
-            'Add this server to your Discord and find many other tabletop roleplayers in Portugal'
-        ],
-        call_to_action:[
-            'Junta-te a nós',
-            'Come and join us'
-        ],
-        friends_title:[
-            'Amigos do RPG Portugal',
-            'Friends of RPG Portugal'
-        ],
-        your_profile_here:[
-            'O teu perfil aqui em breve?',
-            'Your profile here soon?'
-        ],
-        want_to_be_our_friend:[
-            'Queres ser nosso amigo? Já fazes parte do servidor?',
-            'Would you like to help us promote the server?'
-        ],
-        get_us_a_kofi:[
-            'Oferece-nos então um',
-            'Buy us a'
-        ],
-        to_help:[
-            'para ajudar a manter o domínio rpgportugal.com',
-            'to help maintain the rpgportugal.com domain'
-        ],
-        rpgportugal_recommends:[
-            'O RPG Portugal recomenda: joga os jogos do teu país!',
-            'RPG Portugal recommends:'
-        ],
-        rpgs_published:[
-            'RPGs publicados por Portugueses no itch.io',
-            'RPGs published by Portuguese designers in itch.io'
-        ],
-        created_by:[
-            'landing-page para o RPG Portugal criada e mantida por',
-            'landing page for RPG Portugal created and maintained by'
-        ]
-    }
-};
-</script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+<script src="app.js"></script>
 <script src="https://rkd.chmuranet.net/tools/rpgportugal/discord/js"></script>
 </html>
